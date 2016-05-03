@@ -7,7 +7,7 @@ The API endpoint can be found at this url: [http://api.adrianmartin.org](http://
 
 # DECISIONS
 
-* I created this API using Rails with the ```--api``` flag since we weren't using any browser functions.
+* I created this API using Rails with the ```--api``` flag since the API is not going to use any browser functions.
 * I'm suing RSpec for testing the API calls
 * I deployed this application to AWS Elastic Beanstalk with a PostgreSQL RDS for the backend
 * I decided to let the user enter the dates using the same format found in the CSV file but I transform them in the application.
@@ -24,7 +24,7 @@ The API endpoint can be found at this url: [http://api.adrianmartin.org](http://
 ### INDEX
 | URI | Method | Description |Status Code |
 |------------------------------------------|---|----|---------|
-| http://api.adrianmartin.org/|  displays basic information |POST| 200|
+| http://api.adrianmartin.org/|  displays basic information |GET| 200|
 
 ### LIST
 | URI | Method | Description |Status Code |
