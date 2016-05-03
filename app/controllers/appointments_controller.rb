@@ -56,19 +56,24 @@ class AppointmentsController < ApplicationController
         end
     end
 
+    def parse_date(datestr)
+      DateTime.strptime(datestr, "%m/%d/%y %H:%M").to_s(:db)
+    end
+
     def appointment_params
         # Enforce the appropriate parameters from the request.
         # Also transforms the user-submitted dates to datetime from if they are present
         # The start_time and end_time format arrive as follows: "m/d/y h:m" (ie "11/5/14 7:05")
         # This is from the API spec but internally lets use some nice datetimes.
         if params["start_time"].present? && params["end_time"].present?
-            params["start_time"] = DateTime.strptime(params["start_time"], "%m/%d/%y %H:%M").to_s(:db)
-            params["end_time"] = DateTime.strptime(params["end_time"], "%m/%d/%y %H:%M").to_s(:db)
-            params["appointment"]["start_time"] = params["start_time"]
-            params["appointment"]["end_time"] = params["end_time"]
+            params["start_time"] = parse_date(params["start_time"])
+            params["end_time"] = parse_date(params["end_time"])
+            if params["appointment"].present?
+              params["appointment"]["start_time"] = params["start_time"]
+              params["appointment"]["end_time"] = params["end_time"]
+            end
         end
-
-        params.require(:appointment).permit(:first_name, :last_name, :start_time, :end_time, :comment)
+        params.permit(:first_name, :last_name, :start_time, :end_time, :comment, :appointment)
     end
 
     def appointment_url(data)
@@ -77,8 +82,9 @@ class AppointmentsController < ApplicationController
     end
 
     def enforce_content_type
-        p request.content_type
-        render json: {:error => {:message => 'Content-Type must be application/json'}}, status: :not_acceptable unless request.content_type == 'application/json'
+      unless request.content_type == Mime::JSON.to_s || request.accepts.include?(Mime::JSON)
+        render json: {:error => {:message => 'Content-Type must be application/json'}}, status: :not_acceptable
+      end
     end
 
     def error_generic!(exception)

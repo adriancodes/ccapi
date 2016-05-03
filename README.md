@@ -31,7 +31,7 @@ The API endpoint can be found at this url: [http://api.adrianmartin.org](http://
 |------------------------------------------|---|----|---------|
 | http://api.adrianmartin.org/appointments/| Returns all the resources | GET | 200, 404|
 | http://api.adrianmartin.org/appointments/:id| Returns one resource | GET | 200, 404|
-| [http://api.adrianmartin.org/appointments?start_time=11/8/13 13:45&end_time=11/11/13 11:00](http://api.adrianmartin.org/appointments?start_time=11/8/13 13:45&end_time=11/11/13 11:00)| Returns filtered resource  | GET | 200, 404, 422|
+| [http://api.adrianmartin.org/appointments?start_time=11%2F8%2F13%2013%3A45&end_time=11%2F11%2F13%2011%3A00](http://api.adrianmartin.org/appointments?start_time=11/8/13 13:45&end_time=11/11/13 11:00)| Returns filtered resource  | GET | 200, 404, 422|
 
 ### CREATE
 | URI | Method | Description |Status Code |
