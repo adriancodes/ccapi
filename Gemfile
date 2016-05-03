@@ -49,3 +49,9 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
 end
+
+# Added PostgreSQL gem
+group :production do
+    # Use PostgreSQL as the database for Active Record
+    gem 'pg', '~> 0.18.4'
+  end
