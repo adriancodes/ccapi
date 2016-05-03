@@ -48,6 +48,8 @@ end
 # Adding RSpec for API Testing
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+  gem 'guard'
+  gem 'guard-rspec', require: false
 end
 
 # Added PostgreSQL gem
