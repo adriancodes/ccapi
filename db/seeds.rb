@@ -2,6 +2,7 @@ require 'csv'
 require 'date'
 
 # This will import the data from the CSV. Headers are taken into account.
+# Start and End times are converted to datetime strings
 begin
   puts
   csv = CSV.read(Rails.root.join('db/appt_data.csv'), {encoding: "UTF-8", headers: true, header_converters: :symbol})

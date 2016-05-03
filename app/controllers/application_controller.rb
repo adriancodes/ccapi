@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
     end
 
     def error_not_found!
+      # Catch-all route error handler for the application. Will return method not allowed status code.
         render json: {:error => {:message => "Request Method Not Allowed"}}.to_json, status: :method_not_allowed
     end
 end

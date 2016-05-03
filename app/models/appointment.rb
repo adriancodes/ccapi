@@ -1,4 +1,5 @@
 class Appointment < ActiveRecord::Base
+    # Appointment model with several validation methods
     validates :first_name, :last_name, :start_time, :end_time, presence: true
     validate :start_and_end_times_are_blank, on: :create
     validate :start_and_end_times_are_blank, on: :update
@@ -7,6 +8,9 @@ class Appointment < ActiveRecord::Base
     validate :dates_are_overlapping, on: :create
     validate :dates_are_overlapping, on: :update
 
+    # Here we filter results based on the start and end times.
+    # We want to make sure we are returning results that overlap
+    # We apply this filter to the list method if both dates are present
     scope :filter, lambda { |params|
         params["start_time"] = DateTime.parse(params["start_time"])
         params["end_time"] = DateTime.parse(params["end_time"])
@@ -17,6 +21,7 @@ class Appointment < ActiveRecord::Base
     }
 
     def start_and_end_times_are_blank
+        # We the presence of the start and end times
         if !start_time.present? && !end_time.present?
             errors.add(:start_time, "Missing start time")
             errors.add(:end_time, "Missing end time")
@@ -28,6 +33,7 @@ class Appointment < ActiveRecord::Base
     end
 
     def start_and_end_date_are_in_the_past
+        # Ensure the dates are not in the past
         if start_time < Time.current
             errors.add(:start_time, "Time cannot be in the past")
         elsif end_time < Time.current
@@ -36,16 +42,13 @@ class Appointment < ActiveRecord::Base
     end
 
     def dates_are_overlapping
-
+        # Ensure the dates are no overlapping when creating or updating a resource
         data = Appointment.where("(((start_time BETWEEN :start_time AND :end_time)
                                     OR (end_time BETWEEN :start_time AND :end_time))
                                     OR (start_time <= :start_time AND end_time >= :end_time))",
                                     {:start_time => start_time,:end_time => end_time})
-
         if data.length > 1
             errors.add(:overlapping , "Dates are overlapping an existing appointment")
         end
     end
-
-
 end
