@@ -12,12 +12,13 @@ The API endpoint can be found at this url: [http://api.adrianmartin.org](http://
 * I deployed this application to AWS Elastic Beanstalk with a PostgreSQL RDS for the backend
 * I decided to let the user enter the dates using the same format found in the CSV file but I transform them in the application.
 * Since this is for testing purposes, I did not impliment any security features or API versioning schemes.
+* The API requires you make requests with the Content-Type header set to ```application/json```
 
 # ADDED GEMS
 
 * RSpec : API Testing
 * PG : PostgreSQL in Production
-* Puma : Elastic Beanstalk Deployment
+* Puma : Elastic Beanstalk Deployment Instance Running Puma
 
 ## Exposed API Calls
 
