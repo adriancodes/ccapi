@@ -10,8 +10,8 @@ begin
     Appointment.delete_all
     csv.each do |appt|
         appt_hash = appt.to_hash
-        appt_hash[:start_time] = DateTime.strptime(appt_hash[:start_time], "%m/%d/%y %H:%M").to_s
-        appt_hash[:end_time] = DateTime.strptime(appt_hash[:end_time], "%m/%d/%y %H:%M").to_s
+        appt_hash[:start_time] = DateTime.strptime(appt_hash[:start_time], "%m/%d/%y %H:%M").to_s(:db)
+        appt_hash[:end_time] = DateTime.strptime(appt_hash[:end_time], "%m/%d/%y %H:%M").to_s(:db)
         Appointment.create!(appt_hash) do |a|
             p a
         end

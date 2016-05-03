@@ -5,6 +5,7 @@ class AppointmentsController < ApplicationController
     rescue_from ::ActionController::ParameterMissing, with: :error_params!
     rescue_from ::NameError, with: :error_generic!
     rescue_from ::SyntaxError, with: :error_generic!
+    rescue_from ::ArgumentError, with: :error_params!
 
     def list
         render json: @data
@@ -34,14 +35,26 @@ class AppointmentsController < ApplicationController
     protected
 
     def get_data
+        p params
         if params[:id]
             @data = Appointment.find(params[:id])
+        elsif params["start_time"].present? && params["end_time"].present?
+            @data = Appointment.filter(appointment_params)
         else
             @data = Appointment.all
         end
     end
 
     def appointment_params
+
+        if params["start_time"].present? && params["end_time"].present?
+            params["start_time"] = DateTime.strptime(params["start_time"], "%m/%d/%y %H:%M").to_s(:db)
+            params["end_time"] = DateTime.strptime(params["end_time"], "%m/%d/%y %H:%M").to_s(:db)
+            params["appointment"]["start_time"] = params["start_time"]
+            params["appointment"]["end_time"] = params["end_time"]
+        end
+
+
         params.require(:appointment).permit(:first_name, :last_name, :start_time, :end_time, :comment)
     end
 
