@@ -1,4 +1,7 @@
 class AppointmentsController < ApplicationController
+    # Actions handled param initialization.
+    # Exception Rescue methods gracefully handled exceptions by converting them to
+    # json responses with correct status codes
     before_action :get_data, only: [:list, :update, :delete]
     rescue_from ::ActionController::RoutingError, with: :error_not_found!
     rescue_from ::ActiveRecord::RecordNotFound, with: :error_not_found!
@@ -8,6 +11,7 @@ class AppointmentsController < ApplicationController
     rescue_from ::ArgumentError, with: :error_params!
 
     def list
+        # This action will list a single or all appointments (filtered or not)
         render json: @data
     end
 
@@ -53,7 +57,6 @@ class AppointmentsController < ApplicationController
             params["appointment"]["start_time"] = params["start_time"]
             params["appointment"]["end_time"] = params["end_time"]
         end
-
 
         params.require(:appointment).permit(:first_name, :last_name, :start_time, :end_time, :comment)
     end

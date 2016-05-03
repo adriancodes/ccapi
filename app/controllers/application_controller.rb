@@ -4,12 +4,14 @@ class ApplicationController < ActionController::Base
     protect_from_forgery with: :null_session
 
     def index
+        # Root resource that emits json data containing basic information about this exercise
         render json: {:company => "Care Cloud",
                       :candidate => "Adrian Martin",
-                      :position => "Senior Software Engineer"}
+                      :position => "Senior Software Engineer",
+                      :exercise => "Appointment API"}
     end
 
     def error_not_found!
-        render json: {:error => {:message => "Request Method Not Allowed"}}.to_json, status: 405
+        render json: {:error => {:message => "Request Method Not Allowed"}}.to_json, status: :method_not_allowed
     end
 end

@@ -54,4 +54,5 @@ end
 group :production do
     # Use PostgreSQL as the database for Active Record
     gem 'pg', '~> 0.18.4'
-  end
+    gem "puma", '~> 3.4.0'
+end
