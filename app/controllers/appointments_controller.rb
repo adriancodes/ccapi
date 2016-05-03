@@ -1,8 +1,10 @@
 class AppointmentsController < ApplicationController
     # Appointment API controller
     # Actions handled param initialization.
+    # Enforces content type
     # Exception Rescue methods gracefully handled exceptions by converting them to
     # json responses with correct status codes
+    before_filter :enforce_content_type
     before_action :get_data, only: [:list, :update, :delete]
     rescue_from ::ActionController::RoutingError, with: :error_not_found!
     rescue_from ::ActiveRecord::RecordNotFound, with: :error_not_found!
@@ -72,6 +74,11 @@ class AppointmentsController < ApplicationController
     def appointment_url(data)
         # Helper function to properly form a location url
         @data.id.to_s
+    end
+
+    def enforce_content_type
+        p request.content_type
+        render json: {:error => {:message => 'Content-Type must be application/json'}}, status: :not_acceptable unless request.content_type == 'application/json'
     end
 
     def error_generic!(exception)
