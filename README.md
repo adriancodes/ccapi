@@ -21,6 +21,10 @@ The API endpoint can be found at this url: [http://api.adrianmartin.org](http://
 
 ## Exposed API Calls
 
+**When testing the API make sure your request headers include**
+
+```Content-type: 'application/json'```
+
 ### INDEX
 | URI | Method | Description |Status Code |
 |------------------------------------------|---|----|---------|
