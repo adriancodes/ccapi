@@ -6,7 +6,7 @@ class AppointmentsController < ApplicationController
     # json responses with correct status codes
     before_filter :enforce_content_type
     before_action :get_data, only: [:list, :update, :delete]
-    before_action :check_for_dates, only: [:list]
+    before_action :check_for_dates, only: [:list, :create]
     rescue_from ::ActionController::RoutingError, with: :error_not_found!
     rescue_from ::ActiveRecord::RecordNotFound, with: :error_not_found!
     rescue_from ::ActionController::ParameterMissing, with: :error_params!
@@ -50,7 +50,7 @@ class AppointmentsController < ApplicationController
         # Before action method that returns appointment resources depending on the parameters
         if params[:id]
             @data = Appointment.find(params[:id])
-        elsif params["start_time"].present? && params["end_time"].present?
+        elsif params[:id].blank? && params["start_time"].present? && params["end_time"].present?
             @data = Appointment.filter(appointment_params)
         else
             @data = Appointment.all
@@ -59,10 +59,10 @@ class AppointmentsController < ApplicationController
 
     def check_for_dates
         # Checks if both dates are present if one of them is present
-        if !params[:id].present?
-          if  params[:start_time].present? && !params[:end_time].present?
+        if params[:id].blank?
+          if  params[:start_time].present? && params[:end_time].blank?
             raise ActionController::ParameterMissing.new("Missing end time")
-          elsif !params[:start_time].present? && params[:end_time].present?
+          elsif params[:start_time].blank? && params[:end_time].present?
             raise ActionController::ParameterMissing.new("Missing start time")
           end
         end
@@ -80,7 +80,7 @@ class AppointmentsController < ApplicationController
         if params["start_time"].present? && params["end_time"].present?
             params["start_time"] = parse_date(params["start_time"])
             params["end_time"] = parse_date(params["end_time"])
-            if params["appointment"].present?
+            if !params["appointment"].blank?
               params["appointment"]["start_time"] = params["start_time"]
               params["appointment"]["end_time"] = params["end_time"]
             end

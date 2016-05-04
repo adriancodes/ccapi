@@ -1,11 +1,13 @@
 # Appointment API
 This is a sample project which demonstrates how to build an API using Ruby On Rails. The application imports a cvs file containing dummy data and seeds the database.
 
+__Built with: Ruby 2.3.0 & Rails 4.2.6__
+
 # EndPoint
 
 The API endpoint can be found at this url: [http://api.adrianmartin.org](http://api.adrianmartin.org)
 
-# DECISIONS
+# DESIGN NOTES
 
 * I created this API using Rails with the ```--api``` flag since the API is not going to use any browser functions.
 * I'm suing RSpec for testing the API calls
@@ -20,11 +22,15 @@ The API endpoint can be found at this url: [http://api.adrianmartin.org](http://
 * PG : PostgreSQL in Production
 * Puma : Elastic Beanstalk Deployment Instance Running Puma
 
-## Exposed API Calls
+# Testing API
+
+I recommend you use an API testing tool like Postman or simliar chrome extension
 
 **When testing the API make sure your request headers include**
 
-```Content-type: 'application/json'```
+```Content-Type: 'application/json'```
+
+## Exposed API Calls
 
 ### INDEX
 | URI | Method | Description |Status Code |
