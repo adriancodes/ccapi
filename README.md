@@ -60,7 +60,7 @@ I recommend you use an API testing tool like Postman or simliar chrome extension
 |end_time   | "11/5/17 8:05"|
 |comment    | "Know's nothing..."|
 
-**Properly Request Body**
+**Properly Formmatted JSON Body**
 
 ```
     {
@@ -89,7 +89,7 @@ I recommend you use an API testing tool like Postman or simliar chrome extension
 |end_time   | "11/5/17 8:05"|
 |comment    | "Know's nothing..."|
 
-**Properly Request Body**
+**Properly Formmatted JSON Body**
 
 ```
     {
