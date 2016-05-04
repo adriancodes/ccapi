@@ -66,7 +66,7 @@ I recommend you use an API testing tool like Postman or simliar chrome extension
     {
       "first_name": "John",
       "last_name": "Snow",
-      "comment": "Know's nothing...",
+      "comment": "Knows nothing...",
       "start_time": "11/5/17 8:00",
       "end_time": "11/5/17 8:05"
     }
@@ -95,7 +95,7 @@ I recommend you use an API testing tool like Postman or simliar chrome extension
     {
       "first_name": "John",
       "last_name": "Snow",
-      "comment": "Know's nothing...",
+      "comment": "Knows nothing...",
       "start_time": "11/5/17 8:00",
       "end_time": "11/5/17 8:05"
     }
