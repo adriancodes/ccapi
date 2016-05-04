@@ -58,9 +58,9 @@ I recommend you use an API testing tool like Postman or simliar chrome extension
 |last_name  | string |"Snow"|
 |start_time | string |"11/5/17 8:00"|
 |end_time   | string |"11/5/17 8:05"|
-|comment    | string |"Know's nothing..."|
+|comment    | string |"Knows nothing..."|
 
-**Properly Formmatted JSON Body**
+**Properly Formatted JSON Body**
 
 ```
     {
@@ -87,9 +87,9 @@ I recommend you use an API testing tool like Postman or simliar chrome extension
 |last_name  | string |"Snow"|
 |start_time | string |"11/5/17 8:00"|
 |end_time   | string |"11/5/17 8:05"|
-|comment    | string |"Know's nothing..."|
+|comment    | string |"Knows nothing..."|
 
-**Properly Formmatted JSON Body**
+**Properly Formatted JSON Body**
 
 ```
     {
