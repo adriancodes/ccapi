@@ -52,13 +52,13 @@ I recommend you use an API testing tool like Postman or simliar chrome extension
 **Allowd Fields**
 
 
-|field      | example |
-|------------|-------|
-|first_name | "John"|
-|last_name  | "Snow"|
-|start_time | "11/5/17 8:00"|
-|end_time   | "11/5/17 8:05"|
-|comment    | "Know's nothing..."|
+|Field      | Type   |Example |
+|------------|-------|------|
+|first_name | string |"John"|
+|last_name  | string |"Snow"|
+|start_time | string |"11/5/17 8:00"|
+|end_time   | string |"11/5/17 8:05"|
+|comment    | string |"Know's nothing..."|
 
 **Properly Formmatted JSON Body**
 
@@ -81,13 +81,13 @@ I recommend you use an API testing tool like Postman or simliar chrome extension
 **Allowd Fields**
 
 
-|field      | example |
-|------------|-------|
-|first_name | "John"|
-|last_name  | "Snow"|
-|start_time | "11/5/17 8:00"|
-|end_time   | "11/5/17 8:05"|
-|comment    | "Know's nothing..."|
+|Field      | Type   |Example |
+|------------|-------|------|
+|first_name | string |"John"|
+|last_name  | string |"Snow"|
+|start_time | string |"11/5/17 8:00"|
+|end_time   | string |"11/5/17 8:05"|
+|comment    | string |"Know's nothing..."|
 
 **Properly Formmatted JSON Body**
 
