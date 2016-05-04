@@ -1,12 +1,11 @@
 class Appointment < ActiveRecord::Base
     # Appointment model with several validation methods
+    attr_accessor :skip_date_check
     validates :first_name, :last_name, :start_time, :end_time, presence: true
-    before_validation :start_and_end_times_are_blank, on: :create
-    before_validation :start_and_end_times_are_blank, on: :update
-    before_validation :start_and_end_date_are_in_the_past, on: :create
-    before_validation :start_and_end_date_are_in_the_past, on: :update
-    before_validation :dates_are_overlapping, on: :create
-    before_validation :dates_are_overlapping, on: :update
+    before_validation :start_and_end_times_are_blank, on: [:create, :update]
+    before_validation :start_and_end_date_are_in_the_past, on: [:create, :update]
+    before_validation :dates_are_overlapping, on: [:create, :update]
+
 
     # Here we filter results based on the start and end times.
     # We want to make sure we are returning the results that overlap
@@ -44,13 +43,13 @@ class Appointment < ActiveRecord::Base
 
     def dates_are_overlapping
         # If we have times in the request
-        if start_time && end_time
+        if !self.skip_date_check && start_time && end_time
             # Ensure the dates are not overlapping when creating or updating a resource
             data = Appointment.where("(((start_time BETWEEN :start_time AND :end_time)
                                         OR (end_time BETWEEN :start_time AND :end_time))
                                         OR (start_time <= :start_time AND end_time >= :end_time))",
                                         {:start_time => start_time,:end_time => end_time})
-            if data.length > 1
+            if data.length > 0
                 errors.add(:overlapping , "Dates are overlapping an existing appointment")
             end
         end

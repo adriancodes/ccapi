@@ -22,7 +22,8 @@ class AppointmentsController < ApplicationController
     def create
         # This action will create a new resource and return the location is the save was successfull
         # and the data passes all validation filters
-        @data = Appointment.create(appointment_params)
+
+        @data = Appointment.new(appointment_params)
         if @data.save
             render json: @data, location: @data, status: :created
         else
@@ -32,6 +33,10 @@ class AppointmentsController < ApplicationController
 
     def update
         # This action will update the resource if the data passes all validation filters
+        if appointment_params[:start_time].blank? || appointment_params[:start_time].blank?
+            @data.skip_date_check = true
+        end
+
         if @data.update_attributes(appointment_params)
             render json: {}, status: :no_content
         else
@@ -77,6 +82,7 @@ class AppointmentsController < ApplicationController
         # Also transforms the user-submitted dates to datetime from if they are present
         # The start_time and end_time format arrive as follows: "m/d/y h:m" (ie "11/5/14 7:05")
         # This is from the API spec but internally lets use some nice datetimes.
+
         if params["start_time"].present? && params["end_time"].present?
             params["start_time"] = parse_date(params["start_time"])
             params["end_time"] = parse_date(params["end_time"])
