@@ -98,5 +98,5 @@ The API endpoint can be found at this url: [http://api.adrianmartin.org](http://
 ### DELETE
 | URI | Method | Description |Status Code |
 |------------------------------------------|---|----|---------|
-| http://api.adrianmartin.org/appointments/:id|  deletes a new resource |POST| 200|
+| http://api.adrianmartin.org/appointments/:id|  deletes a resource |POST| 200, 404|
 

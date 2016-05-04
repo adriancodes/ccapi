@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   patch 'appointments/:id'  => 'appointments#update'
   delete 'appointments/:id' => 'appointments#delete'
 
+  # Catchall response for undefined routes
   match '*unmatched_route', :to => 'application#error_not_found!', :via => :all
 end

@@ -6,6 +6,7 @@ class AppointmentsController < ApplicationController
     # json responses with correct status codes
     before_filter :enforce_content_type
     before_action :get_data, only: [:list, :update, :delete]
+    before_action :check_for_dates, only: [:list]
     rescue_from ::ActionController::RoutingError, with: :error_not_found!
     rescue_from ::ActiveRecord::RecordNotFound, with: :error_not_found!
     rescue_from ::ActionController::ParameterMissing, with: :error_params!
@@ -40,7 +41,7 @@ class AppointmentsController < ApplicationController
 
     def delete
         # This action will delete a resource
-         render json: @data.destroy, status: :no_content
+        render json: @data.destroy, status: :no_content
     end
 
     protected
@@ -53,6 +54,17 @@ class AppointmentsController < ApplicationController
             @data = Appointment.filter(appointment_params)
         else
             @data = Appointment.all
+        end
+    end
+
+    def check_for_dates
+        # Checks if both dates are present if one of them is present
+        if !params[:id].present?
+          if  params[:start_time].present? && !params[:end_time].present?
+            raise ActionController::ParameterMissing.new("Missing end time")
+          elsif !params[:start_time].present? && params[:end_time].present?
+            raise ActionController::ParameterMissing.new("Missing start time")
+          end
         end
     end
 
